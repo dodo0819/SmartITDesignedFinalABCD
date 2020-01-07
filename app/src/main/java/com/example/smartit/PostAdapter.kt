@@ -36,13 +36,15 @@ class PostAdapter(val posts : MutableList<Post>) : RecyclerView.Adapter<PostAdap
         holder.title.text = posts[position].title
         holder.date.text = posts[position].date
         holder.content.text = posts[position].content
-        holder.username.text = posts[position].username
+
+        val userID = posts[position].userID
+
 
         val postPhoto = posts[position].postPhoto
 
         val intent = Intent(holder.title.context, postDetails::class.java)
 
-        query = FirebaseDatabase.getInstance().getReference("User").orderByChild("username").equalTo(posts[position].username)
+        query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("uid").equalTo(userID)
 
         query.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -58,7 +60,9 @@ class PostAdapter(val posts : MutableList<Post>) : RecyclerView.Adapter<PostAdap
                         val targetUser = h.getValue(User::class.java)
                         val user = targetUser!!.username
                         //Toast.makeText(holder.content.context, "WTF is this " + user, Toast.LENGTH_SHORT).show()
-                        val profilePhoto = targetUser!!.profilePic
+                        val profilePhoto = targetUser!!.image
+                        holder.username.text = user
+                        intent.putExtra("Username", user)
                         Picasso.get().load(profilePhoto).placeholder(R.drawable.profile).into(holder.profilePic)
                         intent.putExtra("ProfilePhoto", profilePhoto)
                     }
@@ -81,8 +85,9 @@ class PostAdapter(val posts : MutableList<Post>) : RecyclerView.Adapter<PostAdap
             intent.putExtra("Title", posts[position].title)
             intent.putExtra("Date", posts[position].date)
             intent.putExtra("Content", posts[position].content)
-            intent.putExtra("Username", posts[position].username)
+            intent.putExtra("UserID", posts[position].userID)
             intent.putExtra("PostPhoto", posts[position].postPhoto)
+            intent.putExtra("PostID", posts[position].postID)
             holder.title.context.startActivity(intent)
 
         }

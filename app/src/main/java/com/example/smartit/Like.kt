@@ -1,3 +1,3 @@
 package com.example.smartit
 
-class Like(val likeID : String, val userID:String, val postID : String)
+class Like(var likeID : String, var userID:String, var postID : String, var status : String)

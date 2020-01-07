@@ -79,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
         userMap["email"]=email
         userMap["password"]=password
         userMap["score"]=0
-        userMap["image"]="https://firebasestorage.googleapis.com/v0/b/testass-7a969.appspot.com/o/Default%20images%2Fprofile.jpg?alt=media&token=8f377486-f2b5-41f2-a463-62758ea11f42"
+        userMap["image"]="https://firebasestorage.googleapis.com/v0/b/smartit-3dd97.appspot.com/o/Default%20images%2Fprofile.png?alt=media&token=98b86e91-c02a-4e1b-884a-aee28a4b5014"
 
         usersRef.child(currentUserID).setValue(userMap)
             .addOnCompleteListener{task ->

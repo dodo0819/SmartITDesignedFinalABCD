@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -113,14 +114,14 @@ class PostActivity : AppCompatActivity() {
                         //Log.d("Testing", "File location : $it")
                         token = "$it"
                         //Log.d("hellowtf", "File location : " + token)
-
+                        val currentUserID= FirebaseAuth.getInstance().currentUser!!.uid
                         //wtf
                         val storePost = Post(
                             postID,
                             title,
                             content,
                             getTime(),
-                            "cshong1996",
+                            currentUserID,
                             countt,
                             token
                         )

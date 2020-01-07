@@ -41,4 +41,26 @@
         android:layout_height="match_parent"
         android:id="@+id/postPhoto"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+
+        >
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/like"
+        android:src="@drawable/heart_not_clicked"
+        android:layout_marginLeft="20dp"
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/comment"
+        android:src="@drawable/comment"
+        android:layout_marginLeft="20dp"
+
+        />
+    </LinearLayout>
 </LinearLayout>
