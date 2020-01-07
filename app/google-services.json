@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "484875685406",
+    "firebase_url": "https://smartit-3dd97.firebaseio.com",
+    "project_id": "smartit-3dd97",
+    "storage_bucket": "smartit-3dd97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484875685406:android:bf031c85d96fa8a823a80f",
+        "android_client_info": {
+          "package_name": "com.example.smartit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484875685406-jn8v5mq1498d1jgj1103efpgg86oc9lv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartit",
+            "certificate_hash": "4d9520bd03bd60fdb0b38a4973d7cac86060d851"
+          }
+        },
+        {
+          "client_id": "484875685406-rs6s7jp85qaa66gsii81cbob4sdj27a8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWS24k3zRwLRgR76ejTgkFL2qEKTLbIg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484875685406-rs6s7jp85qaa66gsii81cbob4sdj27a8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
