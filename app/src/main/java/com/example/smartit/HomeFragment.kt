@@ -1,9 +1,15 @@
 package com.example.smartit
 
 
+import android.app.Activity
 import android.app.DownloadManager
+import android.app.ProgressDialog
+import android.content.Intent
 import android.icu.text.RelativeDateTimeFormatter
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,24 +35,25 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     lateinit var ref : DatabaseReference
-    lateinit var ref2 : DatabaseReference
+    //lateinit var ref2 : DatabaseReference
     lateinit var binding : FragmentHomeBinding
     lateinit var postList : MutableList<Post>
     lateinit var recyclerView: RecyclerView
     lateinit var query: Query
-    var count:Int = 0
+    var count = 0
 
-    lateinit var storage:FirebaseStorage
-    lateinit var storageReference: StorageReference
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        count = 0
+        //count = 0
         ref = FirebaseDatabase.getInstance().getReference("Post")
         query = ref.orderByChild("order")
+        //query = ref.orderByChild("title").equalTo("wtf")
+
 
         binding = DataBindingUtil.inflate(
             inflater,
@@ -53,13 +61,10 @@ class HomeFragment : Fragment() {
             container,
             false
         )
-
+        //getCount1()
         postList = mutableListOf()
 
         recyclerView  = binding.recycleLayout
-
-
-
 
         return binding.root
         //return inflater.inflate(R.layout.fragment_home, container, false)
@@ -69,12 +74,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.button123.setOnClickListener {
-            post()
-            //Toast.makeText(activity, "Fuck = " + count, Toast.LENGTH_SHORT).show()
-            //getTime()
+            val intent = Intent(activity, PostActivity::class.java)
+            startActivity(intent)
+            //post()
         }
 
-
+        val progressDialog = ProgressDialog(activity)
+        progressDialog.setTitle("Loading...")
+        progressDialog.show()
         query.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -91,28 +98,32 @@ class HomeFragment : Fragment() {
                     }
 
                     val adapter = PostAdapter(postList)
+
                     recyclerView.layoutManager = LinearLayoutManager(activity)
                     recyclerView.adapter = adapter
-
+                    progressDialog.dismiss()
                 }
             }
         })
 
+
     }
 
-    private fun post(){
+    /*private fun post(){
 
         val title = binding.text1.text.toString()
         val content = binding.text2.text.toString()
         val postID = ref.push().key.toString()
+        val countt = getCount1()
         val defaultProfile = "https://firebasestorage.googleapis.com/v0/b/smartit-3dd97.appspot.com/o/Default%20images%2Fprofile.png?alt=media&token=98b86e91-c02a-4e1b-884a-aee28a4b5014"
         //Toast.makeText(this@MainActivity,"Please fill in the blank"+ userID, Toast.LENGTH_SHORT).show()
-        val storePost = Post(postID, title, content, getTime(), "cshong1999", (500-getCount1()), defaultProfile)
-        count=0
+        val storePost = Post(postID, title, content, getTime(), "cshong1999", countt, defaultProfile)
+        //count=0
+        //CountOrder.number = 0
         ref.child(postID).setValue(storePost).addOnCompleteListener {
             Toast.makeText(
                 activity,
-                "Successfully Stored into the fire base!!!",
+                "Successfully Stored into the fire base!!! " + countt,
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -140,13 +151,13 @@ class HomeFragment : Fragment() {
 
         val postTime = formate.format(current.time)
 
-        Toast.makeText(
+        /*Toast.makeText(
             activity,
             //"Year = " + currentYear + "\nMonth " + currentMonth+ "\nDate " + currentDate+ "\nHour "
             //       + currentHour+ "\nMin " + currentMin +"\nSec " + currentSec,
             postTime.toString(),
             Toast.LENGTH_SHORT
-        ).show()
+        ).show()*/
 
 
         return postTime.toString()
@@ -154,26 +165,39 @@ class HomeFragment : Fragment() {
 
     private fun getCount1():Int{
 
+        count = 0
 
-        ref.addValueEventListener(object: ValueEventListener {
+        query.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0.exists()){
 
+                if(p0.exists()){
+                    postList.clear()
 
                     for(h in p0.children){
-
+                        //CountOrder.number--
+                        val post = h.getValue(Post::class.java)
+                        postList.add(post!!)
 
                     }
-                    count++
+
+                    val adapter = PostAdapter(postList)
+
+                    CountOrder.total = adapter.itemCount
 
                 }
             }
         })
 
-        return count
-    }
+        return CountOrder.number - CountOrder.total
+    }*/
+
+
+
+
+
+
 }

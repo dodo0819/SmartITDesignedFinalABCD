@@ -2,6 +2,7 @@ package com.example.smartit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_post_details.*
 
 class postDetails : AppCompatActivity() {
@@ -15,5 +16,7 @@ class postDetails : AppCompatActivity() {
         textView3.text= intent.getStringExtra("Title")
         textView4.text= intent.getStringExtra("Content")
 
+        Picasso.get().load(intent.getStringExtra("ProfilePhoto")).placeholder(R.drawable.profile).into(profilePic)
+        Picasso.get().load(intent.getStringExtra("PostPhoto")).into(postPhoto)
     }
 }

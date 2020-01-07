@@ -1,8 +1,8 @@
 
 package com.example.smartit
 
-data class User(val id:String, val name:String = "", val password:String = ""){
-    constructor() : this("","",""){
+data class User(val username:String = "", val profilePic:String = ""){
+    constructor() : this("",""){
 
     }
 
