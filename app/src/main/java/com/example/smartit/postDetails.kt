@@ -72,6 +72,7 @@ class postDetails : AppCompatActivity() {
                 if(p0.exists()){
 
                     like.setImageResource(R.drawable.heart_clicked)
+                        getKey()
                         like.setOnClickListener {
                             unlove()
                             Toast.makeText(this@postDetails, "UnLoved", Toast.LENGTH_SHORT).show()
@@ -107,15 +108,6 @@ class postDetails : AppCompatActivity() {
         val userMap=HashMap<String,Any>()
         userMap[currentUserID]=  "true"
         userMap["notificationID"]=  ntfKey!!
-        /*val storeLike = Like(
-            likeID,
-            intent.getStringExtra("UserID")!!,
-            intent.getStringExtra("PostID")!!,
-            "loved"
-
-        )*/
-
-
 
         //send notification
         //class Notification(val notificationID : String, val date : String, val type : String, val receiverPostID : String, val sender : String)
@@ -164,7 +156,10 @@ class postDetails : AppCompatActivity() {
                     //likeNotificationList.add(likeNot!!)
 
                     getKey.key=p0.value.toString()
-                    Toast.makeText(applicationContext, "Abc  = " + getKey.key, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(applicationContext, "NO KEYYYYYY  zzz= " , Toast.LENGTH_SHORT).show()
+                    Log.d("abcdddd", getKey.key)
+
+                   // Toast.makeText(applicationContext, "Abc  = " + getKey.key, Toast.LENGTH_SHORT).show()
                 }
 
 
@@ -178,7 +173,10 @@ class postDetails : AppCompatActivity() {
             .child(currentUserID)
             .removeValue()
 
+        //Toast.makeText(applicationContext, "Why no key  = " + getKey.key, Toast.LENGTH_SHORT).show()
+
         //After get key
+        ///ERRORRRR//
         FirebaseDatabase.getInstance().getReference("Notification")
             .child(getKey.key)
             .removeValue()
@@ -225,6 +223,38 @@ class postDetails : AppCompatActivity() {
         Toast.makeText(applicationContext, "Abc123  = " + getKey.key, Toast.LENGTH_SHORT).show()
     }
 
+
+    private fun getKey(){
+        val postID1 = intent.getStringExtra("PostID")
+        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+        query = FirebaseDatabase.getInstance().getReference("LikeNotification")
+            .child(postID1!!)
+            .child(currentUserID)
+
+
+        //get the fcking notifcation ID first
+        query.addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()){
+
+                    likeNot.notificationID = p0.value.toString()
+                    //likeNotificationList.add(likeNot!!)
+
+                    getKey.key=p0.value.toString()
+                    //Toast.makeText(applicationContext, "NO KEYYYYYY  zzz= " , Toast.LENGTH_SHORT).show()
+                    Log.d("abcdddd", getKey.key)
+
+                    // Toast.makeText(applicationContext, "Abc  = " + getKey.key, Toast.LENGTH_SHORT).show()
+                }
+
+
+            }
+        })
+    }
 
 }
 

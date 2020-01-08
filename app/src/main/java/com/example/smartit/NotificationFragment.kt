@@ -69,8 +69,6 @@ class NotificationFragment : Fragment() {
                     val mLayoutManager = LinearLayoutManager(activity)
                     mLayoutManager.reverseLayout = true
 
-
-
                     recyclerView.layoutManager = mLayoutManager
                     recyclerView.scrollToPosition(notificationList.size-1)
 

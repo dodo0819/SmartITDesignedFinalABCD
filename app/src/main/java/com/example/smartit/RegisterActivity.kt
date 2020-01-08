@@ -63,6 +63,7 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.makeText(this,"Error: $message", Toast.LENGTH_LONG).show()
                         mAuth.signOut()
                         progressDialog.dismiss()
+
                     }
                 }
         }
@@ -77,7 +78,6 @@ class RegisterActivity : AppCompatActivity() {
         userMap["uid"]=currentUserID
         userMap["username"]=username
         userMap["email"]=email
-        userMap["password"]=password
         userMap["score"]=0
         userMap["image"]="https://firebasestorage.googleapis.com/v0/b/smartit-3dd97.appspot.com/o/Default%20images%2Fprofile.png?alt=media&token=98b86e91-c02a-4e1b-884a-aee28a4b5014"
 
@@ -91,10 +91,13 @@ class RegisterActivity : AppCompatActivity() {
                         ?.addOnCompleteListener{task ->
                             if(task.isSuccessful){
                                 FirebaseAuth.getInstance().signOut()
+
                                 val intent = Intent(this,LoginActivity::class.java)
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                                 startActivity(intent)
+                                Toast.makeText(this,"Account created",Toast.LENGTH_SHORT).show()
                                 finish()
+
                             }
                         }
                 }
