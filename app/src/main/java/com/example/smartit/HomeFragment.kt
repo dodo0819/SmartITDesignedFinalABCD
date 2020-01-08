@@ -61,7 +61,9 @@ class HomeFragment : Fragment() {
 
         binding.button123.setOnClickListener {
             val intent = Intent(activity, PostActivity::class.java)
+
             startActivity(intent)
+            activity!!.finish()
             //post()
         }
 
@@ -84,8 +86,9 @@ class HomeFragment : Fragment() {
                     }
 
                     val adapter = PostAdapter(postList)
-
-                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    val mLayoutManager = LinearLayoutManager(activity)
+                    //mLayoutManager.reverseLayout = true
+                    recyclerView.layoutManager = mLayoutManager
                     recyclerView.adapter = adapter
                     progressDialog.dismiss()
                 }
@@ -144,7 +147,6 @@ class HomeFragment : Fragment() {
             postTime.toString(),
             Toast.LENGTH_SHORT
         ).show()*/
-
 
         return postTime.toString()
     }

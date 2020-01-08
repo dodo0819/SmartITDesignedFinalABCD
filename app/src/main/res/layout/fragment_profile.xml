@@ -10,7 +10,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:text="@string/hello_blank_fragment"
+        android:id="@+id/ProfileName"
+        />
 
     <Button
         android:id="@+id/button3"

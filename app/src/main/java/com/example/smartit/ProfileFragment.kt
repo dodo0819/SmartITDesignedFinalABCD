@@ -37,5 +37,7 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
             activity!!.finish()
         }
+
+        ProfileName.setText(FirebaseAuth.getInstance().currentUser!!.uid)
     }
 }

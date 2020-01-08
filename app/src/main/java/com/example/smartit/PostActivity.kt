@@ -52,6 +52,7 @@ class PostActivity : AppCompatActivity() {
 
             upload()
 
+
         }
 
     }
@@ -122,8 +123,8 @@ class PostActivity : AppCompatActivity() {
                             content,
                             getTime(),
                             currentUserID,
-                            countt,
-                            token
+                            token,
+                            countt
                         )
                         count = 0
                         ref.child(postID).setValue(storePost).addOnCompleteListener {
@@ -132,6 +133,9 @@ class PostActivity : AppCompatActivity() {
                                 "Successfully Stored into the fire base!!!" + getCount1(),
                                 Toast.LENGTH_SHORT
                             ).show()
+                            val intent = Intent(this, MainActivity::class.java)
+
+                            startActivity(intent)
                         }
                     }
 
@@ -182,7 +186,7 @@ class PostActivity : AppCompatActivity() {
         val currentYear = now.get(Calendar.YEAR)
         val currentMonth = now.get(Calendar.MONTH)
         val currentDate = now.get(Calendar.DAY_OF_MONTH)
-        val currentHour = now.get(Calendar.HOUR_OF_DAY) + 8
+        val currentHour = now.get(Calendar.HOUR_OF_DAY) - 4
         val currentMin = now.get(Calendar.MINUTE)
         val currentSec = now.get(Calendar.SECOND)
 
@@ -226,7 +230,6 @@ class PostActivity : AppCompatActivity() {
                         //CountOrder.number--
                         val post = h.getValue(Post::class.java)
                         postList.add(post!!)
-
                     }
 
                     val adapter = PostAdapter(postList)
@@ -239,4 +242,6 @@ class PostActivity : AppCompatActivity() {
 
         return CountOrder.number - CountOrder.total
     }
+
+
 }
