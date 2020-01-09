@@ -131,7 +131,10 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
 
         holder.removeButton.setOnClickListener {
 
-
+            query1 =FirebaseDatabase.getInstance().getReference("CommentNotification")
+                .child(comments[position].postID)
+                .child(currentUser)
+                .child(comments[position].commentID)
 
 
             query1.addValueEventListener(object : ValueEventListener {

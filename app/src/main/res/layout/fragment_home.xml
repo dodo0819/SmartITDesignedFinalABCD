@@ -1,29 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
-    <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".HomeFragment">
 
         <!-- TODO: Update blank fragment layout -->
-
-        <Button
-            android:id="@+id/button123"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Post" />
+            android:id="@+id/rela1">
+
+            <Button
+                android:id="@+id/button123"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Post"
+                android:drawableLeft="@drawable/ic_action_add"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_add"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:id="@+id/imgView_line"
+            android:layout_below="@+id/rela1"
+            android:background="@color/light_grey"
+            android:layout_marginTop="5dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recycleLayout"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/imgView_line" />
 
-            />
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
