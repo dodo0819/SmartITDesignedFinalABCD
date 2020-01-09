@@ -123,8 +123,8 @@ class PostActivity : AppCompatActivity() {
                             content,
                             getTime(),
                             currentUserID,
-                            token,
-                            countt
+                            token
+
                         )
                         count = 0
                         ref.child(postID).setValue(storePost).addOnCompleteListener {
@@ -239,8 +239,8 @@ class PostActivity : AppCompatActivity() {
                 }
             }
         })
-
-        return CountOrder.number - CountOrder.total
+        Log.d("TotalCCC", "Total = " +  CountOrder.total)
+        return CountOrder.total
     }
 
 

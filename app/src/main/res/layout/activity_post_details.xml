@@ -5,8 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".postDetails">
-
+    android:layout_margin="15dp"
+    tools:context=".postDetails"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hide"
+        android:orientation="vertical"
+        >
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -54,6 +62,11 @@
         android:src="@drawable/heart_not_clicked"
         android:layout_marginLeft="20dp"
         />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/likeCount"
+            />
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -62,5 +75,55 @@
         android:layout_marginLeft="20dp"
 
         />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/commentCount"
+            />
     </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Post"
+        android:id="@+id/show"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:id="@+id/show1"
+        android:visibility="gone"
+        >
+
+        <EditText
+            android:id="@+id/commentText"
+            android:layout_width="wrap_content"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            android:hint="Enter comment here"
+            tools:layout_editor_absoluteX="87dp"
+            tools:layout_editor_absoluteY="2dp" />
+
+        <Button
+            android:id="@+id/addComment"
+            android:layout_width="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/commentText"
+            android:text="Comment"
+            />
+
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/commentRecycleView"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 </LinearLayout>

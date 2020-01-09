@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
@@ -78,8 +79,8 @@ class PostAdapter(val posts : MutableList<Post>) : RecyclerView.Adapter<PostAdap
         //val profilePhoto = posts[position]
         Picasso.get().load(postPhoto).placeholder(R.drawable.profile).into(holder.postPhoto)
 
-        holder.title.setOnClickListener{
-            Toast.makeText(holder.title.context, "You click the title", Toast.LENGTH_SHORT).show()
+        holder.postDetails.setOnClickListener{
+            //Toast.makeText(holder.title.context, "You click the title", Toast.LENGTH_SHORT).show()
             //holder.date.text = "You click the title"
             //val intent = Intent(holder.title.context, postDetails::class.java)
             intent.putExtra("Title", posts[position].title)
@@ -101,6 +102,7 @@ class PostAdapter(val posts : MutableList<Post>) : RecyclerView.Adapter<PostAdap
         val username: TextView = itemView.findViewById(R.id.username)
         val profilePic : CircleImageView = itemView.findViewById((R.id.profilePic))
         val postPhoto : ImageView = itemView.findViewById((R.id.postPhoto))
+        val postDetails : LinearLayout = itemView.findViewById((R.id.postDetails))
     }
 
 }

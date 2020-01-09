@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         //count = 0
         ref = FirebaseDatabase.getInstance().getReference("Post")
-        query = ref.orderByChild("order")
+        //query = ref.orderByChild("order")
         //query = ref.orderByChild("title").equalTo("wtf")
 
 
@@ -63,14 +63,14 @@ class HomeFragment : Fragment() {
             val intent = Intent(activity, PostActivity::class.java)
 
             startActivity(intent)
-            activity!!.finish()
+
             //post()
         }
 
         val progressDialog = ProgressDialog(activity)
         progressDialog.setTitle("Loading...")
         progressDialog.show()
-        query.addValueEventListener(object: ValueEventListener {
+        ref.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -87,8 +87,10 @@ class HomeFragment : Fragment() {
 
                     val adapter = PostAdapter(postList)
                     val mLayoutManager = LinearLayoutManager(activity)
-                    //mLayoutManager.reverseLayout = true
+                    mLayoutManager.reverseLayout = true
                     recyclerView.layoutManager = mLayoutManager
+
+                    recyclerView.scrollToPosition(postList.size-1)
                     recyclerView.adapter = adapter
                     progressDialog.dismiss()
                 }

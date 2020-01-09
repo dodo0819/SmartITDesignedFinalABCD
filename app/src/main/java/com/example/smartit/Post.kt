@@ -2,9 +2,9 @@ package com.example.smartit
 
 
 
-class Post(val postID : String, val title : String, val content : String, val date : String, val userID : String, val postPhoto : String, val order : Int){
+class Post(val postID : String, val title : String, val content : String, val date : String, val userID : String, val postPhoto : String){
 
-    constructor() : this("","","","","","",0){
+    constructor() : this("","","","","",""){
 
     }
 
