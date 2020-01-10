@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LibraryMou"></activity>
+        <activity android:name=".forgotPassActivity"></activity>
+        <activity android:name=".QuizActivity" />
+        <activity
+            android:name=".quizMainActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".SearchProfile" />
         <activity android:name=".SplashScreenActivity">
@@ -22,8 +26,13 @@
         <activity
             android:name=".CommentActivity"
             android:parentActivityName=".postDetails" />
-        <activity android:name=".changePassActivity" />
-        <activity android:name=".editProfileActivity" />
+        <activity
+            android:name=".editProfileActivity"
+            android:parentActivityName=".ProfileFragment" />
+        <activity android:name=".ProfileFragment" />
+        <activity
+            android:name=".changePassActivity"
+            android:parentActivityName=".ProfileFragment" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity

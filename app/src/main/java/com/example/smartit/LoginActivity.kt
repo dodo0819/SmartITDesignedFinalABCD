@@ -22,6 +22,10 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             loginUser()
         }
+
+        forgotPassTV.setOnClickListener {
+            startActivity(Intent(this,forgotPassActivity::class.java))
+        }
     }
 
     private fun loginUser() {

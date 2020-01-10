@@ -50,6 +50,17 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"/>
 
+    <TextView
+        android:id="@+id/forgotPassTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password? Click me"
+        android:layout_below="@id/passwordTB"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="5dp"/>
+
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="100dp"

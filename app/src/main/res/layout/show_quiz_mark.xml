@@ -4,16 +4,8 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/subject1Btn"
+        android:id="@+id/showOkBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="C++" />
-
-    <Button
-        android:id="@+id/subject2Btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="JAVA" />
-
-
+        android:text="OK" />
 </LinearLayout>

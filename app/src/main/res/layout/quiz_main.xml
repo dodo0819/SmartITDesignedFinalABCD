@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="LEVEL1"
+        android:text="Level 1    Result: 0/5" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="LEVEL2"
+        android:text="Level 2    Result: 0/5" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="LEVEL3"
+        android:text="Level 3    Result: 0/5" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="Result : 0/15" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NOTICE:\n1)Please complete all questions during the quiz, otherwise the mark will not be recorded.\n2)Score will be changed even is highest score.\n3)These quiz score will not be record into your profile score.
+\n"
+        android:textColor="@android:color/holo_red_dark"
+        android:textColorHighlight="#00E71616" />
+
+</LinearLayout>
