@@ -362,7 +362,7 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
                                         stop1=true
                                     }
 
-                                    Toast.makeText(holder.content.context, "Key = " +getKeyc.key, Toast.LENGTH_SHORT).show()
+                                    //Toast.makeText(holder.content.context, "Key = " +getKeyc.key, Toast.LENGTH_SHORT).show()
 
                                 }
 

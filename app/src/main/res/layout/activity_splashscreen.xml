@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imgView_logo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="centerInside"
         android:src="@drawable/logo" />
 
@@ -21,10 +21,11 @@
         android:layout_height="wrap_content"
         android:text="SMART"
         android:textColor="@color/black"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="500dp"
         android:layout_marginLeft="120dp"
         android:textSize="25dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/textView6"
@@ -34,7 +35,7 @@
         android:textColor="@color/darkorange"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="500dp"
         android:layout_marginLeft="210dp"/>
 
 </RelativeLayout>
