@@ -91,12 +91,14 @@
             android:layout_below="@+id/postPhoto"
             android:layout_marginTop="10dp"/>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/likeCount"
             android:layout_toRightOf="@+id/like"
-            android:layout_marginTop="180dp"/>
+            android:layout_below="@+id/like"
+            />
 
         <ImageView
             android:layout_width="30dp"
@@ -112,7 +114,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/commentCount"
             android:layout_toRightOf="@+id/comment"
-            android:layout_marginTop="180dp"/>
+            android:layout_below="@+id/comment"
+            />
     </RelativeLayout>
 
     <RelativeLayout

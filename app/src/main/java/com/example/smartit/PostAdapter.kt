@@ -89,8 +89,15 @@ class PostAdapter(val posts : MutableList<Post>) : RecyclerView.Adapter<PostAdap
             intent.putExtra("UserID", posts[position].userID)
             intent.putExtra("PostPhoto", posts[position].postPhoto)
             intent.putExtra("PostID", posts[position].postID)
+
             holder.title.context.startActivity(intent)
 
+        }
+
+        holder.username.setOnClickListener{
+            val intent = Intent(holder.title.context, SearchProfile::class.java)
+            intent.putExtra("selectedUserID", posts[position].userID)
+            holder.title.context.startActivity(intent)
         }
 
     }

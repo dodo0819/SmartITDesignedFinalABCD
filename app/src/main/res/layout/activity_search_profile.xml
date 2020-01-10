@@ -21,21 +21,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="PROFILE"
-            android:textSize="30dp"
             android:textColor="@color/black"
+            android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.042"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/signOutBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SignOut"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/settingBtn" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
@@ -50,42 +42,29 @@
 
         <TextView
             android:id="@+id/usernameDP"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="76dp"
             android:text="username"
+            android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.095"
             app:layout_constraintStart_toEndOf="@+id/profileImage"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/settingBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="148dp"
-            android:layout_marginLeft="148dp"
-            android:layout_marginTop="4dp"
-            android:text="Profile Settings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scoreTV" />
 
         <TextView
             android:id="@+id/scoreDP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="24dp"
             android:text="score"
+
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/settingBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.202"
             app:layout_constraintStart_toEndOf="@+id/scoreTV" />
 
         <TextView
@@ -114,42 +93,42 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/bottomaa">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:id="@+id/imgView_line1"
-
-        android:background="@color/light_grey"
-        android:layout_marginTop="5dp"
-        />
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All Post"
-        android:textSize="25dp"
-        android:layout_below="@id/imgView_line1"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/textt"
-    />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:id="@+id/imgView_line"
-        android:layout_below="@+id/textt"
-        android:background="@color/light_grey"
-        android:layout_marginTop="5dp"
-        />
+        android:id="@+id/bottomaa">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:id="@+id/imgView_line1"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imgView_line"
-        android:layout_marginTop="3dp"
-        android:id="@+id/recycleLayout"
-        />
-</RelativeLayout>
+            android:background="@color/light_grey"
+            android:layout_marginTop="5dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Post"
+            android:textSize="25dp"
+            android:layout_below="@id/imgView_line1"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textt"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:id="@+id/imgView_line"
+            android:layout_below="@+id/textt"
+            android:background="@color/light_grey"
+            android:layout_marginTop="5dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgView_line"
+            android:layout_marginTop="3dp"
+            android:id="@+id/recycleLayout"
+            />
+    </RelativeLayout>
 
 </LinearLayout>

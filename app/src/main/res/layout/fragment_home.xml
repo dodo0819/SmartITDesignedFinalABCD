@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rela1">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchText"
+                android:layout_margin="15dp"
+                android:hint="Search..."
+                android:padding="10dp"
+                android:background="@drawable/round_edittext"
 
+                />
             <Button
                 android:id="@+id/button123"
                 android:layout_width="wrap_content"
@@ -22,7 +32,7 @@
                 android:text="Add Post"
                 android:drawableLeft="@drawable/ic_action_add"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="65dp"
                 android:background="@drawable/button_add"
                 android:textColor="@color/white"/>
         </RelativeLayout>
@@ -33,11 +43,12 @@
             android:id="@+id/imgView_line"
             android:layout_below="@+id/rela1"
             android:background="@color/light_grey"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/recycleLayout"
             android:layout_marginTop="3dp"
             android:layout_below="@+id/imgView_line" />

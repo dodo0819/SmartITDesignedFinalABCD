@@ -7,12 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartit.databinding.FragmentHomeBinding
 import com.google.firebase.database.*
-
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 /**
@@ -21,9 +25,10 @@ import com.google.firebase.database.*
 class HomeFragment : Fragment() {
 
     lateinit var ref : DatabaseReference
-    //lateinit var ref2 : DatabaseReference
+    lateinit var ref2 : DatabaseReference
     lateinit var binding : FragmentHomeBinding
     lateinit var postList : MutableList<Post>
+    lateinit var postList1 : MutableList<Post>
     lateinit var recyclerView: RecyclerView
     lateinit var query: Query
     var count = 0
@@ -49,7 +54,7 @@ class HomeFragment : Fragment() {
         )
         //getCount1()
         postList = mutableListOf()
-
+        postList1 = mutableListOf()
         recyclerView  = binding.recycleLayout
 
         return binding.root
@@ -67,6 +72,7 @@ class HomeFragment : Fragment() {
             //post()
         }
 
+
         val progressDialog = ProgressDialog(activity)
         progressDialog.setTitle("Loading...")
         progressDialog.show()
@@ -79,11 +85,12 @@ class HomeFragment : Fragment() {
                 if(p0.exists()){
                     postList.clear()
 
-                    for(h in p0.children){
-                        val post = h.getValue(Post::class.java)
-                        postList.add(post!!)
+                        for (h in p0.children) {
+                                val post = h.getValue(Post::class.java)
+                                postList.add(post!!)
 
-                    }
+                            }
+
 
                     val adapter = PostAdapter(postList)
                     val mLayoutManager = LinearLayoutManager(activity)
@@ -98,92 +105,75 @@ class HomeFragment : Fragment() {
         })
 
 
-    }
 
-    /*private fun post(){
-
-        val title = binding.text1.text.toString()
-        val content = binding.text2.text.toString()
-        val postID = ref.push().key.toString()
-        val countt = getCount1()
-        val defaultProfile = "https://firebasestorage.googleapis.com/v0/b/smartit-3dd97.appspot.com/o/Default%20images%2Fprofile.png?alt=media&token=98b86e91-c02a-4e1b-884a-aee28a4b5014"
-        //Toast.makeText(this@MainActivity,"Please fill in the blank"+ userID, Toast.LENGTH_SHORT).show()
-        val storePost = Post(postID, title, content, getTime(), "cshong1999", countt, defaultProfile)
-        //count=0
-        //CountOrder.number = 0
-        ref.child(postID).setValue(storePost).addOnCompleteListener {
-            Toast.makeText(
-                activity,
-                "Successfully Stored into the fire base!!! " + countt,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-    }
-
-    private fun getTime():String{
-        var formate = SimpleDateFormat("dd MMM, YYYY, HH:mm:ss", Locale.US)
-
-        val now = Calendar.getInstance()
-        val currentYear = now.get(Calendar.YEAR)
-        val currentMonth = now.get(Calendar.MONTH)
-        val currentDate = now.get(Calendar.DAY_OF_MONTH)
-        val currentHour = now.get(Calendar.HOUR_OF_DAY)+8
-        val currentMin = now.get(Calendar.MINUTE)
-        val currentSec = now.get(Calendar.SECOND)
-
-        val current = Calendar.getInstance()
-        current.set(Calendar.YEAR,currentYear)
-        current.set(Calendar.MONTH,currentMonth)
-        current.set(Calendar.DATE,currentDate)
-        current.set(Calendar.HOUR,currentHour)
-        current.set(Calendar.MINUTE,currentMin)
-        current.set(Calendar.SECOND,currentSec)
-
-        val postTime = formate.format(current.time)
-
-        /*Toast.makeText(
-            activity,
-            //"Year = " + currentYear + "\nMonth " + currentMonth+ "\nDate " + currentDate+ "\nHour "
-            //       + currentHour+ "\nMin " + currentMin +"\nSec " + currentSec,
-            postTime.toString(),
-            Toast.LENGTH_SHORT
-        ).show()*/
-
-        return postTime.toString()
-    }
-
-    private fun getCount1():Int{
-
-        count = 0
-
-        query.addValueEventListener(object: ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-
-                if(p0.exists()){
-                    postList.clear()
-
-                    for(h in p0.children){
-                        //CountOrder.number--
-                        val post = h.getValue(Post::class.java)
-                        postList.add(post!!)
-
+            searchText.addTextChangedListener {
+                postList.clear()
+                //Toast.makeText(activity,"text changed", Toast.LENGTH_SHORT).show()
+                val progressDialog = ProgressDialog(activity)
+                progressDialog.setTitle("Loading...")
+                progressDialog.show()
+                ref.addValueEventListener(object: ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
 
-                    val adapter = PostAdapter(postList)
+                    override fun onDataChange(p0: DataSnapshot) {
+                        if(p0.exists()){
+                            postList.clear()
+                            var count = 0
+                            for (h in p0.children) {
+                                val post = h.getValue(Post::class.java)
+                                postList1.add(post!!)
 
-                    CountOrder.total = adapter.itemCount
+                                val title = postList1[count].title.toLowerCase()
+                                val content = postList1[count].content.toLowerCase()
+                                val userID = postList1[count].userID
+                                val sub = searchText.text.toString().toLowerCase()
+                                count++
+                                if(title.contains(sub,false) || content.contains(sub,false)){
+                                        postList.add(post)
+                                }
 
-                }
-            }
-        })
+                                ref2 = FirebaseDatabase.getInstance().getReference("Users").child(userID)
 
-        return CountOrder.number - CountOrder.total
-    }*/
+                                ref2.addValueEventListener(object: ValueEventListener {
+                                    override fun onCancelled(p0: DatabaseError) {
+                                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                    }
+
+                                    override fun onDataChange(p0: DataSnapshot) {
+                                        if (p0.exists()) {
+                                            //for (h in p0.children) {
+                                                val user = p0.getValue(User::class.java)
+                                                val username = user!!.username.toLowerCase()
+                                                if (username.contains(sub, false)) {
+                                                    postList.add(post)
+                                                }
+                                            //}
+                                        }
+                                    }
+                                })
+
+                            }
+
+
+                            val adapter = PostAdapter(postList)
+                            val mLayoutManager = LinearLayoutManager(activity)
+                            mLayoutManager.reverseLayout = true
+                            recyclerView.layoutManager = mLayoutManager
+
+                            recyclerView.scrollToPosition(postList.size-1)
+                            recyclerView.adapter = adapter
+                            progressDialog.dismiss()
+                        }
+                    }
+                })
+
+
+        }
+
+
+    }
 
 
 

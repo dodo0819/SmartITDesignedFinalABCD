@@ -1,7 +1,7 @@
 package com.example.smartit
 
-class Notification(val notifcationID :String, val date : String, val type : String, val receiver : String, val sender : String, val postID : String){
-    constructor() : this("","","","","",""){
+class Notification(var notifcationID :String, var date : String, var type : String, var receiver : String, var sender : String, var postID : String, var status : String){
+    constructor() : this("","","","","","",""){
 
     }
 }

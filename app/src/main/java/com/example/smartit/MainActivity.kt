@@ -61,6 +61,11 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.frame1,libraryFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
+
+                    //val intent = Intent(this, LibraryMou::class.java)
+                    //startActivity(intent)
+
+
                 }
                 R.id.quiz ->{
                     quizFragment= QuizFragment()

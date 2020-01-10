@@ -50,6 +50,13 @@ class postDetails : AppCompatActivity() {
         textView2.text= intent.getStringExtra("Date")
         textView3.text= intent.getStringExtra("Title")
         textView4.text= intent.getStringExtra("Content")
+        val userID = intent.getStringExtra("UserID")
+
+        textView1.setOnClickListener{
+            val intent = Intent(applicationContext, SearchProfile::class.java)
+            intent.putExtra("selectedUserID", userID)
+            startActivity(intent)
+        }
 
         notificationList = mutableListOf()
         userList = mutableListOf()
@@ -115,7 +122,6 @@ class postDetails : AppCompatActivity() {
         getCount1()
         //getCount2()
 
-
         query1 = FirebaseDatabase.getInstance().getReference("Comment")
             .orderByChild("postID")
             .equalTo(postID)
@@ -180,7 +186,8 @@ class postDetails : AppCompatActivity() {
                 message,
                 intent.getStringExtra("UserID")!!,
                 currentUserID,
-                intent.getStringExtra("PostID")!!
+                intent.getStringExtra("PostID")!!,
+                "false"
             )
             //store notification
             ref1.child(ntfKey!!).setValue(storeNotification)
@@ -203,11 +210,9 @@ class postDetails : AppCompatActivity() {
                             user!!.score = user.score+10
                             stop = true
                         }
-
                         FirebaseDatabase.getInstance().getReference("Users")
                             .child(intent.getStringExtra("UserID")!!).setValue(user)
                     }
-
                 }
             })
         }
@@ -403,7 +408,8 @@ class postDetails : AppCompatActivity() {
                 message,
                 intent.getStringExtra("UserID")!!,
                 currentUserID,
-                intent.getStringExtra("PostID")!!
+                intent.getStringExtra("PostID")!!,
+                "false"
             )
             //store notification
             ref1.child(ntfKey!!).setValue(storeNotification)

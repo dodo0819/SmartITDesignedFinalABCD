@@ -32,7 +32,7 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
     lateinit var ref3:DatabaseReference
 
     var stop : Boolean = false
-
+    var stop1 : Boolean = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentAdapter.ViewHolder {
 
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.comments,parent,false)
@@ -130,12 +130,43 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
         })
 
         holder.removeButton.setOnClickListener {
+            stop1 =false
+            val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+
+            query = FirebaseDatabase.getInstance().getReference("CommentLikeNotification")
+                .child(comments[position].commentID)
+
+
+            query.addValueEventListener(object: ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    if(p0.exists()){
+                        for(h in p0.children) {
+                            stop1 = false
+                            if (stop1 == false) {
+                                getKeyc.key = h.value.toString()
+                                FirebaseDatabase.getInstance().getReference("Notification")
+                                    .child(getKeyc.key)
+                                    .removeValue()
+                                stop1 = true
+                            }
+                        }
+
+                        //Toast.makeText(holder.content.context, "Key = " +getKeyc.key, Toast.LENGTH_SHORT).show()
+
+                    }
+
+                }
+            })
+
 
             query1 =FirebaseDatabase.getInstance().getReference("CommentNotification")
                 .child(comments[position].postID)
                 .child(currentUser)
                 .child(comments[position].commentID)
-
 
             query1.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
@@ -154,13 +185,11 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
                 }
             })
 
-
-
             ////Remove all like and like notification of comment////
             //remove comment Like//
 
             //Get all user
-
+            val abc = comments[position].commentID
             ref1 = FirebaseDatabase.getInstance().getReference("Users")
 
             ref1.addValueEventListener(object: ValueEventListener {
@@ -173,7 +202,7 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
                         for (h in p0.children) {
                             Log.d("Userrrrr", "yser ud = " + h.key)
                             query = FirebaseDatabase.getInstance().getReference("CommentLikeNotification")
-                                .child(comments[position].commentID)
+                                .child(abc)
                                 .child(h.key!!)
 
                             //get the fcking notifcation ID first
@@ -184,14 +213,14 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
 
                                 override fun onDataChange(p0: DataSnapshot) {
                                     if(p0.exists()) {
-                                                        getKey.key1 = p0.value.toString()
-                                                        FirebaseDatabase.getInstance().getReference("Notification")
-                                                            .child(getKey.key1)
-                                                            .removeValue()
+                                        for(h in p0.children) {
+                                            getKey.key1 = h.value.toString()
+                                            FirebaseDatabase.getInstance()
+                                                .getReference("Notification")
+                                                .child(getKey.key1)
+                                                .removeValue()
+                                        }
 
-                                    }
-                                    else{
-                                        Toast.makeText(holder.content.context, "wtf = Not exist zzz" ,Toast.LENGTH_SHORT).show()
                                     }
 
                                 }
@@ -201,8 +230,6 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
                     }
                 }
             })
-
-
 
             //Get notification key  to remove the Notification
 
@@ -237,10 +264,10 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
             CountOrder.number--
 
             //////ERROR//////
-            Timer("SettingUp", false).schedule(100500){
-               FirebaseDatabase.getInstance().getReference("CommentLikeNotification")
-                   .child(comments[position].commentID)
-                   .removeValue()
+            Timer("SettingUp", false).schedule(50500){
+                FirebaseDatabase.getInstance().getReference("CommentLikeNotification")
+                    .child(comments[position].commentID)
+                    .removeValue()
             }
 
 
@@ -307,15 +334,13 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
                     //unlove
                     holder.like.setOnClickListener {
                         stop = false
+                        stop1=false
                         FirebaseDatabase.getInstance().getReference("CommentLike")
                             .child(comments[position].commentID)
                             .child(currentUser)
                             .removeValue()
 
-                        FirebaseDatabase.getInstance().getReference("CommentLikeNotification")
-                            .child(comments[position].commentID)
-                            .child(currentUser)
-                            .removeValue()
+
 
                         //////get Key first///////
                         query = FirebaseDatabase.getInstance().getReference("CommentLikeNotification")
@@ -329,15 +354,32 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
 
                             override fun onDataChange(p0: DataSnapshot) {
                                 if(p0.exists()){
-                                    getKeyc.key=p0.value.toString()
+                                    if(stop1==false){
+                                        getKeyc.key=p0.value.toString()
+                                        FirebaseDatabase.getInstance().getReference("Notification")
+                                            .child(getKeyc.key)
+                                            .removeValue()
+                                        stop1=true
+                                    }
+
+                                    Toast.makeText(holder.content.context, "Key = " +getKeyc.key, Toast.LENGTH_SHORT).show()
+
                                 }
+
                             }
                         })
 
+
                         ////////////////////////
 
-                        FirebaseDatabase.getInstance().getReference("Notification")
-                            .child(getKeyc.key)
+
+
+                        // tamadun islam////
+
+                        FirebaseDatabase.getInstance()
+                            .getReference("CommentLikeNotification")
+                            .child(comments[position].commentID)
+                            .child(currentUser)
                             .removeValue()
 
                         //Add Score
@@ -394,7 +436,8 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
                                 message,
                                 comments[position].userID,
                                 currentUserID,
-                                comments[position].postID
+                                comments[position].postID,
+                                "false"
                             )
                             //store Comment Like Notification
                             ref2 = FirebaseDatabase.getInstance().getReference("CommentLikeNotification")
@@ -422,7 +465,7 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
                                         }
 
                                         FirebaseDatabase.getInstance().getReference("Users")
-                                            .child(comments[position].userID).setValue(user)
+                                            .child(user!!.uid).setValue(user)
                                     }
 
                                 }

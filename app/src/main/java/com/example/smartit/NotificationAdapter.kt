@@ -3,6 +3,7 @@ package com.example.smartit
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +18,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import java.util.*
+import kotlin.concurrent.schedule
 
 class NotificationAdapter(val notifications : MutableList<Notification>) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>(){
 
     lateinit var query: Query
     lateinit var postList:MutableList<Post>
     lateinit var post123 : Post
+    var stop : Boolean = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationAdapter.ViewHolder {
 
@@ -41,6 +45,11 @@ class NotificationAdapter(val notifications : MutableList<Notification>) : Recyc
         holder.date.text = notifications[position].date
         val sender = notifications[position].sender
         //holder.date.text = posts[position].date
+
+        if(notifications[position].status.equals("false")){
+            holder.details.setCardBackgroundColor(Color.rgb(135,206,250))
+        }
+
 
         query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("uid").equalTo(sender)
 
@@ -72,6 +81,7 @@ class NotificationAdapter(val notifications : MutableList<Notification>) : Recyc
 
 
             holder.details.setOnClickListener{
+                stop==false
 
                 query = FirebaseDatabase.getInstance().getReference("Post").child(notifications[position].postID)
 
@@ -138,6 +148,33 @@ class NotificationAdapter(val notifications : MutableList<Notification>) : Recyc
                     }
 
                 })
+                Timer("SettingUp", false).schedule(1500) {
+                    query = FirebaseDatabase.getInstance().getReference("Notification")
+                        .child(notifications[position].notifcationID)
+                    query.addValueEventListener(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        }
+
+                        override fun onDataChange(p0: DataSnapshot) {
+
+                            if (p0.exists()) {
+                                val noti = p0.getValue(Notification::class.java)
+                                if(stop==false){
+                                    noti!!.status = "true"
+                                    stop = true
+                                }
+
+
+                                FirebaseDatabase.getInstance().getReference("Notification")
+                                    .child(notifications[position].notifcationID)
+                                    .setValue(noti)
+
+                            }
+                        }
+                    })
+                }
+
 
             }
 
