@@ -7,70 +7,104 @@
     android:layout_marginLeft="5dp"
     android:layout_marginTop="5dp"
     android:layout_marginRight="5dp"
-    app:cardCornerRadius="5dp"
-    >
+    app:cardCornerRadius="5dp">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:layout_height="wrap_content">
 
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/rela1">
 
-            >
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/profilePic"
                 android:src="@drawable/profile"
-                />
-            <TextView
-                android:id="@+id/username"
+                android:layout_marginLeft="3dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
+                android:orientation="vertical"
+                android:layout_toRightOf="@+id/profilePic">
 
-                />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    android:text="12345" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/username"
+                    android:text="12345"
+                    android:textSize="14dp"
+                    android:textColor="@color/grey"/>
+            </LinearLayout>
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rela1"
+            android:text="wo ai ni"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="3dp"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/like"
+            android:src="@drawable/heart_not_clicked"
+            android:layout_below="@+id/content"
+            android:layout_marginLeft="3dp"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/like"
-            android:src="@drawable/heart_not_clicked"
-            android:layout_marginLeft="20dp"
-            />
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/like"
+            android:layout_below="@+id/content"
+            android:id="@+id/linear1">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/likeCount"
-            />
-        <Button
+            android:layout_marginLeft="2dp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/removeComment"
-            android:text="Remove"
-            />
-        </LinearLayout>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/linear1"
+            android:layout_below="@+id/rela1">
 
+            <Button
+                android:id="@+id/removeComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_remove"
+                android:background="@drawable/button_remove"
+                android:text="Remove"
+                android:layout_marginLeft="170dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/light_grey"
+            android:id="@+id/imgView_line"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/linear1"/>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

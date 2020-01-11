@@ -97,8 +97,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/likeCount"
             android:layout_toRightOf="@+id/like"
-            android:layout_below="@+id/like"
-            />
+            android:layout_below="@+id/like" />
 
         <ImageView
             android:layout_width="30dp"
@@ -114,8 +113,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/commentCount"
             android:layout_toRightOf="@+id/comment"
-            android:layout_below="@+id/comment"
-            />
+            android:layout_below="@+id/comment" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -135,6 +133,14 @@
         android:visibility="gone"
         android:layout_centerHorizontal="true"/>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:id="@+id/imgView_line"
+            android:layout_below="@+id/show"
+            android:background="@color/light_grey"
+            android:layout_marginTop="5dp" />
+
         <EditText
             android:id="@+id/commentText"
             android:layout_width="wrap_content"
@@ -145,12 +151,12 @@
             tools:layout_editor_absoluteY="2dp"
             android:layout_marginLeft="15dp"
             android:layout_below="@+id/show"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/ic_action_comment"/>
 
         <Button
             android:id="@+id/addComment"
             android:layout_width="wrap_content"
-            android:layout_weight="0.2"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/commentText"
             android:text="Comment"

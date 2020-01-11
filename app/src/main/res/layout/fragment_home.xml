@@ -43,8 +43,7 @@
             android:id="@+id/imgView_line"
             android:layout_below="@+id/rela1"
             android:background="@color/light_grey"
-            android:layout_marginTop="5dp"
-            />
+            android:layout_marginTop="5dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -52,6 +51,5 @@
             android:id="@+id/recycleLayout"
             android:layout_marginTop="3dp"
             android:layout_below="@+id/imgView_line" />
-
     </RelativeLayout>
 </layout>

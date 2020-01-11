@@ -5,9 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    >
-
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/below"
@@ -35,7 +33,9 @@
             android:text="SignOut"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/settingBtn" />
+            app:layout_constraintStart_toEndOf="@+id/settingBtn"
+            android:background="@color/black"
+            android:textColor="@color/white"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
@@ -72,7 +72,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scoreTV" />
+            app:layout_constraintTop_toBottomOf="@+id/scoreTV"
+            android:background="@color/black"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/scoreDP"
@@ -114,17 +116,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/bottomaa">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottomaa">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:id="@+id/imgView_line1"
-
         android:background="@color/light_grey"
-        android:layout_marginTop="5dp"
-        />
+        android:layout_marginTop="5dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -132,24 +132,21 @@
         android:textSize="25dp"
         android:layout_below="@id/imgView_line1"
         android:layout_marginLeft="10dp"
-        android:id="@+id/textt"
-    />
+        android:id="@+id/textt" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:id="@+id/imgView_line"
         android:layout_below="@+id/textt"
         android:background="@color/light_grey"
-        android:layout_marginTop="5dp"
-        />
+        android:layout_marginTop="5dp" />
+</RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imgView_line"
-        android:layout_marginTop="3dp"
-        android:id="@+id/recycleLayout"
-        />
-</RelativeLayout>
-
+        android:layout_below="@+id/bottomaa"
+        android:layout_marginTop="10dp"
+        android:id="@+id/recycleLayout" />
 </LinearLayout>
