@@ -41,7 +41,7 @@ class SearchProfile : AppCompatActivity() {
 
                     for (h in p0.children) {
                         val post = h.getValue(Post::class.java)
-                        if(post!!.userID.equals(currentUserID)){
+                        if(post!!.userID.equals(intent.getStringExtra("selectedUserID"))){
                             postList.add(post!!)
                         }
 

@@ -1,122 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuizActivity">
 
-    <TextView
-        android:id="@+id/txtQuestion"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginRight="23dp"
-        android:layout_marginBottom="57dp"
-        android:text="TextView"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/answer1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/answer1"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginBottom="60dp"
-        android:text="TextView"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/answer2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtQuestion" />
-
-    <TextView
-        android:id="@+id/answer2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginBottom="70dp"
-        android:text="TextView"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/answer3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answer1" />
-
-    <TextView
-        android:id="@+id/answer3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginBottom="148dp"
-        android:text="TextView"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answer2" />
+        android:id="@+id/rela1"
+        android:layout_marginTop="15dp">
 
     <TextView
         android:id="@+id/finalSubjectDP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="subjectChoosed"
-        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.181"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="javalevel1"
+        android:layout_marginLeft="10dp" />
 
-    <Button
-        android:id="@+id/stopBtn"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="STOP"
-        android:textColor="#FA0033"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answer3"
-        app:layout_constraintVertical_bias="0.69" />
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/finalSubjectDP"
+        android:id="@+id/linear1">
 
     <TextView
-        android:id="@+id/totalScoreLabel"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Score : "
-        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
-        app:layout_constraintEnd_toStartOf="@+id/scoreRecordTV"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="QUESTION"
+        android:layout_marginLeft="60dp"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/scoreRecordTV"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/linear1"
+        android:id="@+id/linear2">
 
     <TextView
         android:id="@+id/questionNo"
@@ -124,17 +48,99 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
-        app:layout_constraintEnd_toStartOf="@+id/totalScoreLabel"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="1" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView4"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QUESTION "
-        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
-        app:layout_constraintEnd_toStartOf="@+id/questionNo"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/linear2"
+        android:id="@+id/linear3">
+
+    <TextView
+        android:id="@+id/totalScoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Score :" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/linear3"
+        android:id="@+id/linear4">
+
+    <TextView
+        android:id="@+id/scoreRecordTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="0" />
+    </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rela1"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="asd"
+        android:textColor="@color/black"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/answer1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="qwer"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_below="@+id/txtQuestion"
+        android:background="@drawable/custom_border"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:id="@+id/answer2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="1) asd"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:background="@drawable/custom_border"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/answer1"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/answer3"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="asd"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/answer2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_border"/>
+
+    <Button
+        android:id="@+id/stopBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STOP"
+        android:textColor="@color/black"
+        android:background="@drawable/button_remove"
+        android:layout_below="@+id/answer3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"/>
+</RelativeLayout>

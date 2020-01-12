@@ -7,21 +7,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        >
+        android:gravity="center">
 
         <Button
             android:id="@+id/changeBtn"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="CHANGE PASSWORD" />
+            android:text="Change Password" />
 
         <Button
             android:id="@+id/editBtn"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="EDIT PROFILE" />
-
+            android:text="Edit Profile" />
     </LinearLayout>
-
 </LinearLayout>

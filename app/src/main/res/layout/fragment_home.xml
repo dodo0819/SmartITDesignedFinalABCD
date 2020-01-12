@@ -15,6 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rela1">
+
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -23,8 +25,8 @@
                 android:hint="Search..."
                 android:padding="10dp"
                 android:background="@drawable/round_edittext"
+                android:drawableLeft="@drawable/ic_action_search"/>
 
-                />
             <Button
                 android:id="@+id/button123"
                 android:layout_width="wrap_content"

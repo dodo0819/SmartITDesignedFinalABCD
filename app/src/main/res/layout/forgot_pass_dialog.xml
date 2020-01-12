@@ -1,28 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <EditText
-        android:id="@+id/forgotEmail"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textPersonName" />
+        android:background="@drawable/custom_border"
+        android:padding="7dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerHorizontal="true">
 
-    <Button
-        android:id="@+id/confirmResetBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirm" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:id="@+id/forgotPass" />
 
-    <Button
-        android:id="@+id/cancelResetBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter your email address to reset your password."
+            android:textColor="@color/black"
+            android:layout_below="@+id/forgotPass"
+            android:id="@+id/textcontent"
+            android:layout_marginTop="5dp"/>
+
+        <EditText
+            android:id="@+id/forgotEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="example@gmail.com"
+            android:inputType="textPersonName"
+            android:background="@drawable/round_edittext"
+            android:layout_below="@+id/textcontent"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_action_darkemail"/>
+
+        <Button
+            android:id="@+id/confirmResetBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset Password"
+            android:layout_below="@+id/forgotEmail"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_resetpass"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/forgotEmail"
+            android:layout_toRightOf="@+id/confirmResetBtn">
+
+            <Button
+                android:id="@+id/cancelResetBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

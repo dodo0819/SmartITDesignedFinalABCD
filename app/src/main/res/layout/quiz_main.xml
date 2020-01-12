@@ -1,43 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rela1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level of Quiz"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:id="@+id/textlevel"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_border"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rela1"
+        android:layout_marginTop="20dp"
+        android:id="@+id/rela2">
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="LEVEL1"
-        android:text="Level 1    Result: 0/5" />
+        android:text="Level 1    Result: 0/5"
+        android:background="@drawable/button_lvl1"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="LEVEL2"
-        android:text="Level 2    Result: 0/5" />
+        android:text="Level 2    Result: 0/5"
+        android:background="@drawable/button_lvl2"
+        android:textColor="@color/black"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="10dp"/>
 
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="LEVEL3"
-        android:text="Level 3    Result: 0/5" />
+        android:text="Level 3    Result: 0/5"
+        android:background="@drawable/button_lvl3"
+        android:textColor="@color/black"
+        android:layout_below="@+id/button2"
+        android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:clickable="false"
-        android:text="Result : 0/15" />
+        android:text="Result : 0/15"
+        android:background="@drawable/button_add"
+        android:textColor="@color/white"
+        android:layout_below="@+id/rela2"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NOTICE:\n1)Please complete all questions during the quiz, otherwise the mark will not be recorded.\n2)Score will be changed even is highest score.\n3)These quiz score will not be record into your profile score.
+        android:text="NOTICE:\n1)Please complete all questions during the quiz, otherwise the mark will not be recorded.
+        \n\n2)Score will be changed even is highest score.
+        \n\n3)These quiz score will not be record into your profile score.
 \n"
         android:textColor="@android:color/holo_red_dark"
-        android:textColorHighlight="#00E71616" />
-
-</LinearLayout>
+        android:textColorHighlight="#00E71616"
+        android:layout_below="@+id/button4"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="15dp"/>
+</RelativeLayout>
