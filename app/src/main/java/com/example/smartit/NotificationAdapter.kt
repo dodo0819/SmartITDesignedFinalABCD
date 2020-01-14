@@ -1,7 +1,10 @@
 
 package com.example.smartit
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.util.Log
@@ -12,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +43,7 @@ class NotificationAdapter(val notifications : MutableList<Notification>) : Recyc
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         postList = mutableListOf()
         //Toast.makeText(holder.message.context, "WTF is this " + notifications[position].type, Toast.LENGTH_SHORT).show()
         holder.message.text = notifications[position].type

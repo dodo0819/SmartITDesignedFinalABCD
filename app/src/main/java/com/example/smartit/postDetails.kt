@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,11 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_post_details.*
 import kotlinx.android.synthetic.main.activity_post_details.profilePic
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -308,36 +314,10 @@ class postDetails : AppCompatActivity() {
     }
 
     private fun getTime(): String {
-        var formate = SimpleDateFormat("dd MMM, YYYY, HH:mm:ss", Locale.US)
 
-        val now = Calendar.getInstance()
-        val currentYear = now.get(Calendar.YEAR)
-        val currentMonth = now.get(Calendar.MONTH)
-        val currentDate = now.get(Calendar.DAY_OF_MONTH)
-        val currentHour = now.get(Calendar.HOUR_OF_DAY) - 4
-        val currentMin = now.get(Calendar.MINUTE)
-        val currentSec = now.get(Calendar.SECOND)
+        val today = LocalDateTime.now(ZoneId.systemDefault())
 
-        val current = Calendar.getInstance()
-        current.set(Calendar.YEAR, currentYear)
-        current.set(Calendar.MONTH, currentMonth)
-        current.set(Calendar.DATE, currentDate)
-        current.set(Calendar.HOUR, currentHour)
-        current.set(Calendar.MINUTE, currentMin)
-        current.set(Calendar.SECOND, currentSec)
-
-        val postTime = formate.format(current.time)
-
-        /*Toast.makeText(
-            applicationContext,
-            //"Year = " + currentYear + "\nMonth " + currentMonth+ "\nDate " + currentDate+ "\nHour "
-            //       + currentHour+ "\nMin " + currentMin +"\nSec " + currentSec,
-            postTime.toString(),
-            Toast.LENGTH_SHORT
-        ).show()
-        */
-
-        return postTime.toString()
+        return today.format(DateTimeFormatter.ofPattern("d MMM uuuu HH:mm:ss "))
     }
 
     private fun getKey(){
@@ -373,52 +353,87 @@ class postDetails : AppCompatActivity() {
     }
 
     private fun addComment(view : View){
-        //val intent = Intent(applicationContext, CommentActivity::class.java)
-        //startActivity(intent)
-        val postID1 = intent.getStringExtra("PostID")
-        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
 
-        ref = FirebaseDatabase.getInstance().getReference("Comment")
-        val commentID = ref.push().key
-        val comment = Comment(commentID!!,postID1!!,currentUserID,commentText.text.toString(),getTime())
+        val alertBox = AlertDialog.Builder(this@postDetails)
 
-        ref.child(commentID).setValue(comment).addOnSuccessListener {
-            //Toast.makeText(applicationContext, "Success add comment", Toast.LENGTH_SHORT).show()
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        alertBox.setTitle("Error")
+
+        alertBox.setIcon(R.mipmap.ic_launcher)
+
+        alertBox.setNegativeButton("Close"){dialog, which ->
+            dialog.dismiss()
         }
-        ref1 = FirebaseDatabase.getInstance().getReference("Notification")
-        ref2 = FirebaseDatabase.getInstance().getReference("CommentNotification")
-        ref3 = FirebaseDatabase.getInstance().getReference("PostComment")
-        val ntfKey = ref1.push().key
 
-        //ref3.child(intent.getStringExtra("PostID")!!).child(currentUserID).child(commentID).setValue(true).addOnSuccessListener {
-        //    Toast.makeText(applicationContext, "Success add comment wtf", Toast.LENGTH_SHORT).show()
-        //}
 
-        //If send own self notification no  need
-        if(!(currentUserID.equals(intent.getStringExtra("UserID")))) {
-            //send notification
-            //class Notification(val notificationID : String, val date : String, val type : String, val receiverPostID : String, val sender : String)
-            val message = " comments on your  \"" + intent.getStringExtra("Title") + "\" post"
+        if(commentText.text.length==0){
+            alertBox.setMessage("Your comment is empty !!!")
+            alertBox.show()
+        }
+        else {
 
-            val storeNotification = Notification(
-                ntfKey!!,
-                getTime(),
-                message,
-                intent.getStringExtra("UserID")!!,
+            //val intent = Intent(applicationContext, CommentActivity::class.java)
+            //startActivity(intent)
+            val postID1 = intent.getStringExtra("PostID")
+            val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+
+            ref = FirebaseDatabase.getInstance().getReference("Comment")
+            val commentID = ref.push().key
+            val comment = Comment(
+                commentID!!,
+                postID1!!,
                 currentUserID,
-                intent.getStringExtra("PostID")!!,
-                "false"
+                commentText.text.toString(),
+                getTime()
             )
-            //store notification
-            ref1.child(ntfKey!!).setValue(storeNotification)
-            //store comment notification
-            ref2.child(intent.getStringExtra("PostID")!!).child(currentUserID).child(commentID).setValue(ntfKey)
+
+            ref.child(commentID).setValue(comment).addOnSuccessListener {
+                commentText.setText("")
+                Toast.makeText(applicationContext, "Comment Successfully", Toast.LENGTH_SHORT)
+                    .show()
+                val inputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+            ref1 = FirebaseDatabase.getInstance().getReference("Notification")
+            ref2 = FirebaseDatabase.getInstance().getReference("CommentNotification")
+            ref3 = FirebaseDatabase.getInstance().getReference("PostComment")
+            val ntfKey = ref1.push().key
+
+            //ref3.child(intent.getStringExtra("PostID")!!).child(currentUserID).child(commentID).setValue(true).addOnSuccessListener {
+            //    Toast.makeText(applicationContext, "Success add comment wtf", Toast.LENGTH_SHORT).show()
+            //}
+
+            //If send own self notification no  need
+            if (!(currentUserID.equals(intent.getStringExtra("UserID")))) {
+                //send notification
+                //class Notification(val notificationID : String, val date : String, val type : String, val receiverPostID : String, val sender : String)
+                val message = " comments on your  \"" + intent.getStringExtra("Title") + "\" post"
+
+                val storeNotification = Notification(
+                    ntfKey!!,
+                    getTime(),
+                    message,
+                    intent.getStringExtra("UserID")!!,
+                    currentUserID,
+                    intent.getStringExtra("PostID")!!,
+                    "false"
+                )
+                //store notification
+                ref1.child(ntfKey!!).setValue(storeNotification)
+                //store comment notification
+                ref2.child(intent.getStringExtra("PostID")!!).child(currentUserID).child(commentID)
+                    .setValue(ntfKey)
+
+
+                //hide keyboard
+                //val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                //inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+                //Toast.makeText(this@postDetails, "Comment Successfully", Toast.LENGTH_SHORT).show()
+
+            }
 
         }
-
-
     }
 
     private fun getCount1() {

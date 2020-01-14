@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -16,6 +17,9 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_post.*
 import java.io.IOException
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class PostActivity : AppCompatActivity() {
@@ -29,6 +33,7 @@ class PostActivity : AppCompatActivity() {
     lateinit var token: String
     lateinit var postList : MutableList<Post>
     var count = 0
+    var valid : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +80,7 @@ class PostActivity : AppCompatActivity() {
             resultCode == Activity.RESULT_OK &&
             data != null && data.data!! != null
         ) {
-
+            valid = true
             filePath = data.data!!
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
@@ -90,73 +95,87 @@ class PostActivity : AppCompatActivity() {
 
     private fun upload() {
 
-        val title = titleText.text.toString()
-        val content = contentText.text.toString()
-        val postID = ref.push().key.toString()
+        val alertBox = AlertDialog.Builder(this@PostActivity)
 
-        if (filePath != null) {
-            val progressDialog = ProgressDialog(this)
-            progressDialog.setTitle("Uploading...")
-            progressDialog.show()
+        alertBox.setTitle("Error")
 
-            val countt = getCount1()
-            val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
+        alertBox.setIcon(R.mipmap.ic_launcher)
 
-            imageRef.putFile(filePath!!)
-                .addOnSuccessListener {
-                    progressDialog.dismiss()
-                    Toast.makeText(
-                        applicationContext,
-                        "File Uploaded" + imageRef.downloadUrl,
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    imageRef.downloadUrl.addOnSuccessListener {
-                        //Log.d("Testing", "File location : $it")
-                        token = "$it"
-                        //Log.d("hellowtf", "File location : " + token)
-                        val currentUserID= FirebaseAuth.getInstance().currentUser!!.uid
-                        //wtf
-                        val storePost = Post(
-                            postID,
-                            title,
-                            content,
-                            getTime(),
-                            currentUserID,
-                            token
-
-                        )
-                        count = 0
-                        ref.child(postID).setValue(storePost).addOnCompleteListener {
-                            Toast.makeText(
-                                applicationContext,
-                                "Successfully Stored into the fire base!!!" + getCount1(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            val intent = Intent(this, MainActivity::class.java)
-
-                            startActivity(intent)
-                        }
-                    }
-
-                }
-                .addOnFailureListener {
-                    progressDialog.dismiss()
-                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
-
-
-                }
-                .addOnProgressListener { taskSnapshot ->
-                    val progress =
-                        100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
-                    progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
-
-
-                }
-
-
+        alertBox.setNegativeButton("Close"){dialog, which ->
+            dialog.dismiss()
         }
 
+        if(titleText.text.length==0 || contentText.text.length==0){
+            alertBox.setMessage("Please fill in the empty space")
+            alertBox.show()
+        }
+        else if(valid == false){
+            alertBox.setMessage("Please choose a photo")
+            alertBox.show()
+        }
+        else {
+            val title = titleText.text.toString()
+            val content = contentText.text.toString()
+            val postID = ref.push().key.toString()
+
+            if (filePath != null) {
+                val progressDialog = ProgressDialog(this)
+                progressDialog.setTitle("Uploading...")
+                progressDialog.show()
+
+                val countt = getCount1()
+                val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
+
+                imageRef.putFile(filePath!!)
+                    .addOnSuccessListener {
+                        progressDialog.dismiss()
+
+                        imageRef.downloadUrl.addOnSuccessListener {
+                            //Log.d("Testing", "File location : $it")
+                            token = "$it"
+                            //Log.d("hellowtf", "File location : " + token)
+                            val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+                            //wtf
+                            val storePost = Post(
+                                postID,
+                                title,
+                                content,
+                                getTime(),
+                                currentUserID,
+                                token
+
+                            )
+                            count = 0
+                            ref.child(postID).setValue(storePost).addOnCompleteListener {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Successfully Posted !!!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                val intent = Intent(this, MainActivity::class.java)
+
+                                startActivity(intent)
+                            }
+                        }
+
+                    }
+                    .addOnFailureListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+
+
+                    }
+                    .addOnProgressListener { taskSnapshot ->
+                        val progress =
+                            100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                        progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
+
+
+                    }
+
+
+            }
+        }
 
     }
 
@@ -180,36 +199,10 @@ class PostActivity : AppCompatActivity() {
     }*/
 
     private fun getTime(): String {
-        var formate = SimpleDateFormat("dd MMM, YYYY, HH:mm:ss", Locale.US)
 
-        val now = Calendar.getInstance()
-        val currentYear = now.get(Calendar.YEAR)
-        val currentMonth = now.get(Calendar.MONTH)
-        val currentDate = now.get(Calendar.DAY_OF_MONTH)
-        val currentHour = now.get(Calendar.HOUR_OF_DAY) - 4
-        val currentMin = now.get(Calendar.MINUTE)
-        val currentSec = now.get(Calendar.SECOND)
+        val today = LocalDateTime.now(ZoneId.systemDefault())
 
-        val current = Calendar.getInstance()
-        current.set(Calendar.YEAR, currentYear)
-        current.set(Calendar.MONTH, currentMonth)
-        current.set(Calendar.DATE, currentDate)
-        current.set(Calendar.HOUR, currentHour)
-        current.set(Calendar.MINUTE, currentMin)
-        current.set(Calendar.SECOND, currentSec)
-
-        val postTime = formate.format(current.time)
-
-        /*Toast.makeText(
-            applicationContext,
-            //"Year = " + currentYear + "\nMonth " + currentMonth+ "\nDate " + currentDate+ "\nHour "
-            //       + currentHour+ "\nMin " + currentMin +"\nSec " + currentSec,
-            postTime.toString(),
-            Toast.LENGTH_SHORT
-        ).show()
-        */
-
-        return postTime.toString()
+        return today.format(DateTimeFormatter.ofPattern("d MMM uuuu HH:mm:ss "))
     }
 
     private fun getCount1(): Int {

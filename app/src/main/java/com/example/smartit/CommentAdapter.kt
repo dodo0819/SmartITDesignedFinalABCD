@@ -18,6 +18,9 @@ import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.Timer
 import kotlin.concurrent.schedule
@@ -481,36 +484,10 @@ class CommentAdapter(val comments : MutableList<Comment>) : RecyclerView.Adapter
 
 
     private fun getTime(): String {
-        var formate = SimpleDateFormat("dd MMM, YYYY, HH:mm:ss", Locale.US)
 
-        val now = Calendar.getInstance()
-        val currentYear = now.get(Calendar.YEAR)
-        val currentMonth = now.get(Calendar.MONTH)
-        val currentDate = now.get(Calendar.DAY_OF_MONTH)
-        val currentHour = now.get(Calendar.HOUR_OF_DAY) - 4
-        val currentMin = now.get(Calendar.MINUTE)
-        val currentSec = now.get(Calendar.SECOND)
+        val today = LocalDateTime.now(ZoneId.systemDefault())
 
-        val current = Calendar.getInstance()
-        current.set(Calendar.YEAR, currentYear)
-        current.set(Calendar.MONTH, currentMonth)
-        current.set(Calendar.DATE, currentDate)
-        current.set(Calendar.HOUR, currentHour)
-        current.set(Calendar.MINUTE, currentMin)
-        current.set(Calendar.SECOND, currentSec)
-
-        val postTime = formate.format(current.time)
-
-        /*Toast.makeText(
-            applicationContext,
-            //"Year = " + currentYear + "\nMonth " + currentMonth+ "\nDate " + currentDate+ "\nHour "
-            //       + currentHour+ "\nMin " + currentMin +"\nSec " + currentSec,
-            postTime.toString(),
-            Toast.LENGTH_SHORT
-        ).show()
-        */
-
-        return postTime.toString()
+        return today.format(DateTimeFormatter.ofPattern("d MMM uuuu HH:mm:ss "))
     }
 
 
