@@ -26,10 +26,11 @@
                 android:layout_marginLeft="3dp"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_toRightOf="@+id/profilePic">
+                android:layout_toRightOf="@+id/profilePic"
+                android:id="@+id/linearr">
 
                 <TextView
                     android:id="@+id/username"
@@ -47,6 +48,23 @@
                     android:text="12345"
                     android:textSize="14dp"
                     android:textColor="@color/grey"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_toRightOf="@+id/linearr">
+
+                <Button
+                    android:id="@+id/removeComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_action_remove"
+                    android:background="@drawable/button_remove"
+                    android:layout_marginLeft="20dp"
+                    android:text="Remove"
+                    android:textSize="10dp" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -80,23 +98,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/likeCount"
             android:layout_marginLeft="2dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_toRightOf="@+id/linear1"
-            android:layout_below="@+id/rela1">
-
-            <Button
-                android:id="@+id/removeComment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_action_remove"
-                android:background="@drawable/button_remove"
-                android:text="Remove"
-                android:layout_marginLeft="170dp"/>
         </LinearLayout>
 
         <ImageView
